@@ -1,0 +1,47 @@
+options
+{
+  LOOKAHEAD=3;
+}
+
+PARSER_BEGIN(Homework)
+public class Homework{
+	public static void main(String args[]) throws ParseException{
+		Homework parser=new Homework(System.in);
+		
+		  	System.out.println("Language L={a*bb* | aa*bc* | ef}");
+			System.out.println("Write a string...");
+			try{				System.out.print("> ");
+				parser.L();
+				System.out.println("Accepted");
+			}
+			catch(Exception e)
+			{
+		  		System.out.println("Rejected");
+			}
+			catch(TokenMgrError e)
+			{
+		  		System.out.println("Rejected");
+			}
+
+	}
+}
+PARSER_END(Homework)
+
+SKIP :
+{
+	" " | " \t " | "\r"
+}
+
+TOKEN :
+{
+	 <LF : "\n" >
+}
+
+void L(): {}
+{
+	(	  
+	   (("a")+( "b"( "c"("c")* | ("b")*))) |  (("a")* ("b")+) | "ef"
+	)
+	<LF>
+}
+
